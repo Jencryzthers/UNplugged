@@ -430,7 +430,7 @@ $vfs_recycle_plgver = shell_exec ( "cat /boot/config/plugins/vfs_recycle/plgver.
 	</div>
 	<form name="vfs_recycle_settings" method="POST" action="/update.htm" target="progressFrame">
 		<input type="hidden" name="cmd" value="/etc/rc.d/rc.vfs_plg">
-		<table>
+		<table class="settings">
 			<tr>
 				<td>Enable vfs_recycle:</td>
 				<td>
@@ -453,14 +453,13 @@ $vfs_recycle_plgver = shell_exec ( "cat /boot/config/plugins/vfs_recycle/plgver.
 				<td>Remove files older than:</td>
 				<td><input type="text" name="arg3" maxlength="10" value="<?=$vfs_recycle_cfg['AGE'];?>"> minutes</td>
 			</tr>
-			</div>			
 		</table>		
 	</form>
 	<br />
 	<div align="center">
-				<hr size="3" align="center" width="75%" color="grey" style="margin-top:20px;margin-bottom:18px" >
-				<input type="submit" name="runCmd" value="Apply" style="margin-bottom:35px">
-				<button type="button" style="margin-bottom:35px" onClick="done();">Done</button>
+		<hr size="3" align="center" width="75%" color="grey" style="margin-top:20px;margin-bottom:18px" >
+		<input type="submit" name="runCmd" value="Apply" style="margin-bottom:35px">
+		<button type="button" style="margin-bottom:35px" onClick="done();">Done</button>
 	</div>
 </div>
 ]]>
