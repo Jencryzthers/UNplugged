@@ -255,7 +255,7 @@ vfs_recycle_downgradeplg()
 
 vfs_recycle_empty()
 {
-rm -rf /mnt/user/BIN/*
+rm -rf /mnt/user/.Recycle.Bin/*
 }	
 # read our configuration
 source /boot/config/plugins/vfs_recycle/vfs_recycle.cfg
@@ -344,7 +344,7 @@ $vfs_recycle_enabled = no;
 		$vfs_recycle_enabled = yes;
 	}
 	endif;
-$vfs_recycle_trashsize = shell_exec ( "du -sh /mnt/user/BIN | cut -f1" );
+$vfs_recycle_trashsize = shell_exec ( "du -sh /mnt/user/.Recycle.Bin | cut -f1" );
 $vfs_recycle_rollback = file_exists( "boot/config/plugins/vfs_recycle_unplugged.plg.old" ) ? "yes" : "no";
 $vfs_recycle_plgver = shell_exec ( "cat /boot/config/plugins/vfs_recycle/plgver.txt" );
 ?>
@@ -373,7 +373,7 @@ $vfs_recycle_plgver = shell_exec ( "cat /boot/config/plugins/vfs_recycle/plgver.
 				</form>
 			</div>			
 			<br>
-			<?if (($files = @scandir('/mnt/user/BIN/')) && count($files) > 2):?>
+			<?if (($files = @scandir('/mnt/user/.Recycle.Bin/')) && count($files) > 2):?>
 			<div style="position:relative;float:left;width:100%;text-align:center;margin-bottom;24px">
 					<img src='/plugins/vfs_recycle/vfs_full.png'><br>
 					<b>Recycle Bin Total Size: <?=$vfs_recycle_trashsize?></b>
@@ -454,12 +454,13 @@ $vfs_recycle_plgver = shell_exec ( "cat /boot/config/plugins/vfs_recycle/plgver.
 				<td><input type="text" name="arg3" maxlength="10" value="<?=$vfs_recycle_cfg['AGE'];?>"> minutes</td>
 			</tr>
 			</div>
+			<div align="center">
+				<hr size="3" align="center" width="75%" color="grey" style="margin-top:20px;margin-bottom:18px" >
+				<input type="submit" name="runCmd" value="Apply" style="margin-bottom:35px">
+				<button type="button" style="margin-bottom:35px" onClick="done();">Done</button>
+			</div>
 		</table>
-		<div align="center">
-			<hr size="3" align="center" width="75%" color="grey" style="margin-top:20px;margin-bottom:18px" >
-			<input type="submit" name="runCmd" value="Apply" style="margin-bottom:35px">
-			<button type="button" style="margin-bottom:35px" onClick="done();">Done</button>
-		</div>
+		
 	</form>
 	<br />
 </div>
