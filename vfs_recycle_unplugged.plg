@@ -48,7 +48,7 @@ rm /tmp/vfs_recycle-cleanup
 <FILE Name="/boot/config/plugins/vfs_recycle/plgver.txt">
 <INLINE>
 <![CDATA[
-&version;
+2015.03.31
 ]]>
 </INLINE>
 </FILE>
