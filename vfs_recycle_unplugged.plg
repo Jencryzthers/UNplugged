@@ -4,7 +4,7 @@
 <!ENTITY name       "Recycle Bin">
 <!ENTITY author     "Influencer (patched by Jencryzthers)">
 <!ENTITY version    "2015.03.31">
-<!ENTITY category   "Network Services">
+<!ENTITY category   "UserUtilities">
 <!ENTITY pluginURL  "https://raw.githubusercontent.com/Jencryzthers/UNplugged/dev/vfs_recycle_unplugged.plg">
 ]>
 
@@ -48,7 +48,7 @@ rm /tmp/vfs_recycle-cleanup
 <FILE Name="/boot/config/plugins/vfs_recycle/plgver.txt">
 <INLINE>
 <![CDATA[
-2015.03.31
+&version;
 ]]>
 </INLINE>
 </FILE>
@@ -285,7 +285,6 @@ esac
 </INLINE>
 </FILE>
 
-
 <FILE Name="/usr/local/emhttp/plugins/vfs_recycle/vfs_recycle_icon.png">
 <LOCAL>/boot/config/plugins/vfs_recycle/vfs_recycle_icon.png</LOCAL>
 </FILE>
@@ -312,11 +311,11 @@ esac
 
 <FILE Name="/usr/local/emhttp/plugins/vfs_recycle/vfs_recycle.page">
 <INLINE>
-Menu="NetworkServices"
+Menu="&category;"
 Icon="vfs_recycle_icon.png"
 Version="&version;"
 Type="php"
-Title="Recycle Bin"
+Title="&name;"
 ---
 <![CDATA[
 <?PHP
