@@ -8,6 +8,11 @@
 <!ENTITY pluginURL  "https://raw.githubusercontent.com/Jencryzthers/UNplugged/dev/vfs_recycle_unplugged.plg">
 ]>
 
+<!-- 
+This version has been patched to run on unRAID 6 (Tested & working on beta 14b)
+Patched by: Jencryzthers
+-->
+
 <PLUGIN  name="&name;"
          author="&author;"
          version="&version;"
