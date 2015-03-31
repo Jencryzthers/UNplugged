@@ -4,7 +4,7 @@
 <!ENTITY name       "Recycle Bin">
 <!ENTITY author     "Influencer (patched by Jencryzthers)">
 <!ENTITY version    "2015.03.31">
-<!ENTITY category   "UserUtilities">
+<!ENTITY category   "Utilities">
 <!ENTITY pluginURL  "https://raw.githubusercontent.com/Jencryzthers/UNplugged/dev/vfs_recycle_unplugged.plg">
 ]>
 
