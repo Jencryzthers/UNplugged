@@ -4,7 +4,7 @@
 <!ENTITY name       "Recycle Bin">
 <!ENTITY author     "Influencer (patched by Jencryzthers)">
 <!ENTITY version    "2015.03.31">
-<!ENTITY category   "System Settings">
+<!ENTITY category   "Network Services">
 <!ENTITY pluginURL  "https://raw.githubusercontent.com/Jencryzthers/UNplugged/dev/vfs_recycle_unplugged.plg">
 ]>
 
@@ -312,9 +312,9 @@ esac
 
 <FILE Name="/usr/local/emhttp/plugins/vfs_recycle/vfs_recycle.page">
 <INLINE>
-Menu="SystemSettings"
+Menu="NetworkServices"
 Icon="vfs_recycle_icon.png"
-Version="2.1.1"
+Version="&version;"
 Type="php"
 Title="Recycle Bin"
 ---
