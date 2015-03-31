@@ -335,11 +335,6 @@ Author="Benjamin Waller; Influencer"
 Type="php"
 Title="vfs_recycle"
 ---
-</INLINE>
-</FILE>
-
-<FILE Name="/usr/local/emhttp/plugins/vfs_recycle/vfs_recycle.php">
-<INLINE>
 <![CDATA[
 <?PHP
 $vfs_recycle_cfg = parse_ini_file( "/boot/config/plugins/vfs_recycle/vfs_recycle.cfg" );
