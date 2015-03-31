@@ -2,8 +2,8 @@
 
 <!DOCTYPE PLUGIN [
 <!ENTITY name       "Recycle Bin">
-<!ENTITY author     "Influencer (patched by Jencryzthers)">
-<!ENTITY version    "2015.03.31 (b)">
+<!ENTITY author     "Influencer">
+<!ENTITY version    "2015.03.31">
 <!ENTITY category   "Utilities">
 <!ENTITY pluginURL  "https://raw.githubusercontent.com/Jencryzthers/UNplugged/dev/vfs_recycle_unplugged.plg">
 ]>
