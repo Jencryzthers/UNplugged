@@ -2,7 +2,7 @@
 <PLUGIN>
 
 <!--
-This is the dev branch!!!
+This is the dev branch!!! patched by jencryzthers
 This Plugin installs and controls vfs_recycle for UnRaid.
 All dependencies are installed as needed and everything is controlable from the webgui
 
@@ -51,7 +51,7 @@ rm /tmp/vfs_recycle-cleanup
 <FILE Name="/boot/config/plugins/vfs_recycle/plgver.txt">
 <INLINE>
 <![CDATA[
-1.2
+1.3 (patched for unRAID 6b14b)
 ]]>
 </INLINE>
 </FILE>
@@ -70,7 +70,7 @@ AGE="720"
 <FILE Name="/usr/local/emhttp/plugins/webGui/unplugged.page">
 <INLINE>
 <![CDATA[
-Author="Influencer"
+Author="Influencer (patched by jencryzthers)"
 Version="1.0.0"
 Title="Unplugged PLG"
 Menu="Settings"
@@ -82,22 +82,33 @@ Type="menu"
 <FILE Name="/boot/config/plugins/vfs_recycle/config/smb-extra.conf">
 <INLINE>
 <![CDATA[
-
 #vfs_recycle_start
 #Recycle bin share
-[BIN]
-	path = /mnt/user/BIN
+[RecycleBin]
+	path = /mnt/user/.Recycle.Bin
 	read only = No
 
 #vfs config
+# Documentation http://www.samba.org/samba/docs/man/manpages-3/smb.conf.5.html
+# Forum topic http://lime-technology.com/forum/index.php?topic=5446.0
+# %S Samba share name (which in unRaid equals the user share name), eg. Storage
+# %P User share full path, eg /mnt/user/Storage
+# %u Username of the current service, if any
+# To apply changes execute: /etc/rc.d/rc.samba restart
+# If the single custom bin solution is chosen, create the dir manually, and grant it g+rwx permissions
+
 [global]
-vfs objects = recycle 
-        recycle:repository = /mnt/user/BIN/%m/%P
+vfs objects = recycle
+   recycle:repository = /mnt/user/.Recycle.Bin/%P
         recycle:keeptree = Yes
         recycle:touch = Yes
+   recycle:touch_mtime = Yes
         recycle:versions = Yes
-        recycle:noversions = *.doc
+        recycle:exclude = *.tmp   
+        recycle:exclude_dir = .Recycle.Bin
+acl allow execute always = yes
 #vfs_recycle_end
+
 ]]>
 </INLINE>
 </FILE>
@@ -128,10 +139,10 @@ vfs_recycle_start()
 	fi
 	#If weekly run is enabled, add cron job
 	if [[ $WEEKLYRUN = "yes" ]]; then
-	crontab -l > /tmp/file; echo '#Empty vfs trash once a week' >> /tmp/file; echo '0 3 * * * find /mnt/user/BIN/* -amin +'$AGE' -delete' >>/tmp/file; crontab /tmp/file; rm /tmp/file
+	crontab -l > /tmp/file; echo '#Empty vfs trash once a week' >> /tmp/file; echo '0 3 * * * find /mnt/user/.Recycle.Bin/* -amin +'$AGE' -delete' >>/tmp/file; crontab /tmp/file; rm /tmp/file
 	else
 		if [[ `crontab -l | grep "Empty vfs trash"` != "" ]]; then
-			crontab -l > /tmp/file; sed '/#Empty vfs trash/,/\/mnt\/user\/BIN/d' /tmp/file >> /tmp/cron; crontab /tmp/cron; rm /tmp/file; rm /tmp/cron
+			crontab -l > /tmp/file; sed '/#Empty vfs trash/,/\/mnt\/user\/.Recycle.Bin/d' /tmp/file >> /tmp/cron; crontab /tmp/cron; rm /tmp/file; rm /tmp/cron
 		fi
 	fi
 	CMDLINE="sudo /etc/rc.d/rc.samba restart > /dev/null 2>&1"
@@ -152,7 +163,7 @@ vfs_recycle_stop()
 	sleep 1
 	if [[ $WEEKLYRUN = "no" ]]; then
 		if [[ `crontab -l | grep "Empty vfs trash"` != "" ]]; then
-			crontab -l > /tmp/file; sed '/#Empty vfs trash/,/\/mnt\/user\/BIN/d' /tmp/file >> /tmp/cron; crontab /tmp/cron; rm /tmp/file; rm /tmp/cron
+			crontab -l > /tmp/file; sed '/#Empty vfs trash/,/\/mnt\/user\/.Recycle.Bin/d' /tmp/file >> /tmp/cron; crontab /tmp/cron; rm /tmp/file; rm /tmp/cron
 		fi
 	fi
 	sed '/#vfs_recycle_start/,/#vfs_recycle_end/d' /boot/config/smb-extra.conf >> smb.tmp
@@ -222,11 +233,11 @@ vfs_recycle_updateplg()
 	if [ -f vfs_recycle_unplugged.plg ]; then
 	mv vfs_recycle_unplugged.plg vfs_recycle_unplugged.plg.old
 	echo "Updating plugin"
-	wget -q --no-check-certificate https://github.com/Influencer/UNplugged/raw/master/vfs_recycle_unplugged.plg
+	wget -q --no-check-certificate https://raw.githubusercontent.com/Jencryzthers/UNplugged/dev/vfs_recycle_unplugged.plg
 	/usr/local/sbin/installplg /boot/config/plugins/vfs_recycle_unplugged.plg
 	else
 	echo "Updating plugin"
-	wget -q --no-check-certificate https://github.com/Influencer/UNplugged/raw/master/vfs_recycle_unplugged.plg
+	wget -q --no-check-certificate https://raw.githubusercontent.com/Jencryzthers/UNplugged/dev/vfs_recycle_unplugged.plg
 	/usr/local/sbin/installplg /boot/config/plugins/vfs_recycle_unplugged.plg
 	fi
 }
@@ -347,9 +358,9 @@ $vfs_recycle_plgver = shell_exec ( "cat /boot/config/plugins/vfs_recycle/plgver.
 	<div id="title">
 		<span class="left">Status:&#32;<img src='/plugins/vfs_recycle/device_status.png'>
 			<?if ($vfs_recycle_enabled=="yes"):?>	
-					<span class="green"><b>ENABLED</b></span>
+					<span class="green"><b>Enabled</b></span>
 			<?else:?>
-					<span class="red"><b>DISABLED</b></span>
+					<span class="red"><b>Disabled</b></span>
 			<?endif;?>	
 		</span>
 	</div>	
