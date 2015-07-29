@@ -1,7 +1,7 @@
 <?xml version='1.0' standalone='yes'?>
 
 <!DOCTYPE PLUGIN [
-<!ENTITY name       "Recycle Bin">
+<!ENTITY name       "Recycle_Bin">
 <!ENTITY author     "Influencer">
 <!ENTITY version    "2015.04.01">
 <!ENTITY category   "Utilities">
@@ -11,6 +11,8 @@
 <!-- 
 This version has been patched to run on unRAID 6 (Tested & working on beta 14b)
 Patched by: Jencryzthers
+This version has been patched to run on unraid 6 (Tested & working on 6.0.1), added _ to recycle bin and removed recycle from vfs_plg posted by MyKroFt and bondoo0.
+Patched by: Lacehim
 -->
 
 <PLUGIN  name="&name;"
@@ -377,7 +379,7 @@ $vfs_recycle_plgver = shell_exec ( "cat /boot/config/plugins/vfs_recycle/plgver.
 			<?if (($files = @scandir('/mnt/user/.Recycle.Bin/')) && count($files) > 2):?>
 			<div style="position:relative;float:left;width:100%;text-align:center;margin-bottom;24px">
 					<img src='/plugins/vfs_recycle/vfs_full.png'><br>
-					<b>Recycle Bin Total Size: <?=$vfs_recycle_trashsize?></b>
+					<b>Recycle_Bin Total Size: <?=$vfs_recycle_trashsize?></b>
 				<form name="vfs_recycle_empty" method="POST" action="/update.htm" target="progressFrame">
 					<input type="hidden" name="cmd" value="/etc/rc.d/rc.vfs_plg empty">
 					<input type="submit" name="runCmd" value="Empty Trash">
@@ -386,7 +388,7 @@ $vfs_recycle_plgver = shell_exec ( "cat /boot/config/plugins/vfs_recycle/plgver.
 			<?else:?>
 				<div style="position:relative;float:right;width:100%;text-align:center;margin-bottom:24px">
 						<img src='/plugins/vfs_recycle/vfs_empty.png'><br>
-						<b>Recycle Bin is empty</b>
+						<b>Recycle_Bin is empty</b>
 				<form name="vfs_recycle_empty" method="POST" action="/update.htm" target="progressFrame">
 					<input type="hidden" name="cmd" value="/etc/rc.d/rc.vfs_plg empty">
 					<input type="submit" name="runCmd" value="Empty Trash" disabled>
@@ -433,7 +435,7 @@ $vfs_recycle_plgver = shell_exec ( "cat /boot/config/plugins/vfs_recycle/plgver.
 		<input type="hidden" name="cmd" value="/etc/rc.d/rc.vfs_plg">
 		<table class="settings">
 			<tr>
-				<td>Enable Recycle Bin:</td>
+				<td>Enable Recycle_Bin:</td>
 				<td>
 					<select name="arg1" size="1">
 						<?=mk_option($vfs_recycle_cfg['SERVICE'], "disable", "No");?>
@@ -474,7 +476,7 @@ $vfs_recycle_plgver = shell_exec ( "cat /boot/config/plugins/vfs_recycle/plgver.
 #!/bin/bash
 source /boot/config/plugins/vfs_recycle/vfs_recycle.cfg
 if [ $SERVICE = enable ]; then
-/etc/rc.d/rc.vfs_recycle_plg start
+/etc/rc.d/rc.vfs_plg start
 fi
 ]]>
 </INLINE>
@@ -485,7 +487,7 @@ fi
 <INLINE>
 <![CDATA[
 #!/bin/bash
-/etc/rc.d/rc.vfs_recycle_plg stop
+/etc/rc.d/rc.vfs_plg stop
 ]]>
 </INLINE>
 </FILE>
